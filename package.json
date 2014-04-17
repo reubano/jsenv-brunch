@@ -1,7 +1,7 @@
 {
   "name": "ls-brunch",
-  "version": "1.4.2",
-  "description": "Add support for processing .jsls files to Brunch. Read environment values to compile to JS.",
+  "version": "1.0.0",
+  "description": "Add support for list directory contents.",
   "author": "Reuben Cummings (https://reubano.github.io)",
   "homepage": "https://github.com/reubano/ls-brunch",
   "repository": {
