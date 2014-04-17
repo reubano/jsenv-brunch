@@ -11,23 +11,23 @@ module.exports = class lsCompiler
   constructor: (@config) ->
     null
 
-  compile: (data, path, callback) ->
+  compile: (data, filePath, callback) ->
     sandbox =
       module:
         exports: undefined
       require: require
 
     try
-      if path.extname(path) == '.coffeels'
+      if path.extname(filePath) == '.coffeels'
         data = coffee.compile(data, bare: yes)
 
       dirHash = vm.runInNewContext "module.exports = #{data}", sandbox
 
-      for name, relPath of dirHash
-        absPath = path.resolve(__dirname, '..', relPath)
-        do (key) -> fs.readdir absPath, (err, files) ->
-          throw err if err
-          dirHash[key] = files
+      for dir, relPath of dirHash
+        absPath = path.resolve(__dirname, '../../..', relPath)
+        allFiles = fs.readdirSync absPath
+        files = (f for f in allFiles when f[0] isnt '.')
+        dirHash[dir] = files
 
       result =  "module.exports = " + JSON.stringify(dirHash)
 
